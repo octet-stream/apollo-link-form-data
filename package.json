@@ -7,10 +7,12 @@
   "author": "Nick K. <nick.kruchinin@gmail.com>",
   "license": "MIT",
   "browser": {
-    "./lib/util/isFile": "./isFileBrowser"
+    "./lib/util/isFile": "./lib/util/isFileBrowser",
+    "./lib/util/normalizeOptions": "./lib/util/normalizeOptionsBrowser"
   },
   "devDependencies": {
     "@octetstream/eslint-config": "2.1.0",
+    "apollo-client": "^2.3.2",
     "apollo-link": "1.2.2",
     "ava": "0.25.0",
     "codecov": "3.0.2",
@@ -27,8 +29,6 @@
     "graphql": "0.13.0"
   },
   "dependencies": {
-    "@octetstream/object-to-form-data": "1.0.1",
-    "lodash.omit": "4.5.0",
-    "p-waterfall": "1.0.0"
+    "@octetstream/object-to-form-data": "1.0.1"
   }
 }
