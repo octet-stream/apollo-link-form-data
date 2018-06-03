@@ -1,0 +1,17 @@
+{
+  "parser": "babel-eslint",
+  "plugins": [
+    "ava"
+  ],
+  "extends": [
+    "@octetstream",
+    "plugin:ava/recommended"
+  ],
+  "rules": {
+    "ava/no-ignored-test-files": ["error", {
+      "files": [
+        "test/**/*.js"
+      ]
+    }]
+  }
+}

@@ -1,0 +1,7 @@
+node_modules
+.DS_Store
+yarn-error.log
+npm-debul.log
+package-lock.json
+.nyc_output
+coverage
