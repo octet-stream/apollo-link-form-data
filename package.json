@@ -10,6 +10,12 @@
     "./lib/util/isFile": "./lib/util/isFileBrowser",
     "./lib/util/normalizeOptions": "./lib/util/normalizeOptionsBrowser"
   },
+  "scripts": {
+    "staged": "node_modules/.bin/lint-staged",
+    "test": "node_modules/.bin/ava",
+    "precommit": "yarn staged",
+    "prepush": "yarn test"
+  },
   "devDependencies": {
     "@octetstream/eslint-config": "2.1.0",
     "apollo-link": "1.2.2",
@@ -21,7 +27,9 @@
     "formdata-node": "1.0.1",
     "graphql": "0.13.2",
     "graphql-tag": "2.9.2",
+    "husky": "^0.14.3",
     "isomorphic-fetch": "^2.2.1",
+    "lint-staged": "^7.1.3",
     "nyc": "12.0.1"
   },
   "peerDependencies": {
