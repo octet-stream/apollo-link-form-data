@@ -12,21 +12,22 @@
   },
   "devDependencies": {
     "@octetstream/eslint-config": "2.1.0",
-    "apollo-client": "^2.3.2",
     "apollo-link": "1.2.2",
     "ava": "0.25.0",
     "codecov": "3.0.2",
     "eslint": "4.19.1",
     "eslint-plugin-ava": "4.5.1",
-    "faker": "4.1.0",
+    "fetch-mock": "^6.4.3",
     "formdata-node": "1.0.1",
     "graphql": "0.13.2",
-    "nyc": "12.0.1",
-    "parasprite": "1.0.0-beta.7"
+    "graphql-tag": "2.9.2",
+    "isomorphic-fetch": "^2.2.1",
+    "nyc": "12.0.1"
   },
   "peerDependencies": {
     "apollo-link": "1.1.0",
-    "graphql": "0.13.0"
+    "graphql": "0.13.0",
+    "node-fetch": "2.1.2"
   },
   "dependencies": {
     "@octetstream/object-to-form-data": "1.0.1"
