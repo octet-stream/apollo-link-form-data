@@ -1,17 +1,19 @@
 require("isomorphic-fetch")
 
+const {Readable} = require("stream")
+
 const test = require("ava")
 
 const {execute, makePromise} = require("apollo-link")
 
-const mock = require("fetch-mock")
+const mockFetch = require("fetch-mock")
 const gql = require("graphql-tag")
 
 const {createFormDataLink} = require("..")
 
 const uri = "http://localhost:2319/graphql"
 
-test.beforeEach(() => void mock.restore())
+test.beforeEach(t => void (t.context.mock = mockFetch.createInstance()))
 
 test("Should create a link without any argument", t => {
   t.plan(1)
@@ -23,6 +25,8 @@ test("Should create a link without any argument", t => {
 
 test("Should always make a request with POST method", async t => {
   t.plan(1)
+
+  const {mock} = t.context
 
   mock.post(uri, {
     data: {
@@ -53,6 +57,8 @@ test(
   "Should send a request with JSON body unless files were defined in variables",
   async t => {
     t.plan(4)
+
+    const {mock} = t.context
 
     mock.post(uri, {
       data: {
@@ -85,3 +91,40 @@ test(
     t.is(JSON.parse(body).variables.noop, "noop")
   }
 )
+
+test(
+  "Should always serialize body to FormData with serialize.force option",
+  async t => {
+    t.plan(3)
+
+    const {mock} = t.context
+
+    mock.post(uri, {
+      data: {
+        doNothing: null
+      }
+    })
+
+    const query = gql`
+      mutation DoNothing($noop: String!) {
+        doNothing(noop: $noop)
+      }
+    `
+
+    const variables = {
+      noop: "noop"
+    }
+
+    const link = createFormDataLink({uri, serialize: {force: true}})
+
+    await makePromise(execute(link, {query, variables}))
+
+    const [, {headers, body}] = t.context.mock.lastCall()
+
+    t.true(body instanceof Readable)
+    t.true(String(headers["content-type"]).startsWith("multipart/form-data;"))
+    t.is(headers.accept, "*/*")
+  }
+)
+
+test.afterEach(t => void t.context.mock.restore())
