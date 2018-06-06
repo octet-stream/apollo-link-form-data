@@ -8,7 +8,7 @@
   "license": "MIT",
   "browser": {
     "./lib/util/isFile": "./lib/util/isFileBrowser",
-    "./lib/util/normalizeOptions": "./lib/util/normalizeOptionsBrowser"
+    "./lib/util/makeFetcherPayload": "./lib/util/makeFetcherPayloadBrowser"
   },
   "scripts": {
     "staged": "node_modules/.bin/lint-staged",
@@ -20,7 +20,7 @@
     "@octetstream/eslint-config": "2.1.0",
     "apollo-link": "1.2.2",
     "ava": "0.25.0",
-    "codecov": "3.0.2",
+    "codecov": "^3.0.2",
     "eslint": "4.19.1",
     "eslint-plugin-ava": "4.5.1",
     "fetch-mock": "^6.4.3",
@@ -30,7 +30,7 @@
     "husky": "^0.14.3",
     "isomorphic-fetch": "^2.2.1",
     "lint-staged": "^7.1.3",
-    "nyc": "12.0.1"
+    "nyc": "^12.0.2"
   },
   "peerDependencies": {
     "apollo-link": "1.1.0",

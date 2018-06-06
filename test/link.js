@@ -1,3 +1,5 @@
+require("isomorphic-fetch")
+
 const test = require("ava")
 
 const {execute, makePromise} = require("apollo-link")
