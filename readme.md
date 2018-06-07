@@ -5,6 +5,8 @@
 [![Build Status](https://travis-ci.org/octet-stream/apollo-link-form-data.svg?branch=master)](https://travis-ci.org/octet-stream/apollo-link-form-data)
 [![Code Coverage](https://codecov.io/github/octet-stream/apollo-link-form-data/coverage.svg?branch=master)](https://codecov.io/github/octet-stream/apollo-link-form-data?branch=master)
 
+🚧 Project on early stage. I still wotking on documentation and tests.
+
 ## Installation
 
 You can install this package from npm:
