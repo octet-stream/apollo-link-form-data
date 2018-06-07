@@ -23,7 +23,7 @@ yarn add node-fetch formdata-node
 
 And put this fetcher to options manually:
 
-```
+```js
 import fetch from "node-fetch"
 
 import {createFormDataLink} from "apollo-link-form-data"
