@@ -19,6 +19,12 @@
     "precommit": "yarn staged",
     "prepush": "yarn test"
   },
+  "ava": {
+    "files": [
+      "test/**/*.js",
+      "!test/**/__helper__/*.js"
+    ]
+  },
   "devDependencies": {
     "@octetstream/eslint-config": "2.1.0",
     "ava": "0.25.0",

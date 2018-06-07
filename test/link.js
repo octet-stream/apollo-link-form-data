@@ -9,6 +9,8 @@ const {execute, makePromise} = require("apollo-link")
 const mockFetch = require("fetch-mock")
 const gql = require("graphql-tag")
 
+const read = require("./__helper__/readStream")
+
 const {createFormDataLink} = require("..")
 
 const uri = "http://localhost:2319/graphql"
@@ -124,6 +126,51 @@ test(
     t.true(body instanceof Readable)
     t.true(String(headers["content-type"]).startsWith("multipart/form-data;"))
     t.is(headers.accept, "*/*")
+  }
+)
+
+test(
+  "Should always serialize body to FormData with serialize.strict option " +
+  "AND ignore all boolean values"
+  ,
+  async t => {
+    t.plan(4)
+
+    const {mock} = t.context
+
+    mock.post(uri, {
+      data: {
+        doNothing: null
+      }
+    })
+
+    const query = gql`
+      mutation DoNothing($noop: String!) {
+        doNothing(noop: $noop)
+      }
+    `
+
+    const variables = {
+      noop: "noop",
+      boolean: false
+    }
+
+    const link = createFormDataLink({uri, serialize: {strict: true}})
+
+    await makePromise(execute(link, {query, variables}))
+
+    const [, {headers, body}] = t.context.mock.lastCall()
+
+    t.true(body instanceof Readable)
+    t.true(String(headers["content-type"]).startsWith("multipart/form-data;"))
+    t.is(headers.accept, "*/*")
+
+    // Review needed
+    const actual = String(await read(body))
+      .split(/\n/)
+      .find(part => part.includes("form-data; name=\"variables[boolean]\""))
+
+    t.falsy(actual)
   }
 )
 
