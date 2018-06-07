@@ -28,7 +28,7 @@ For Node.js you also need to install following dependencies:
 yarn add node-fetch formdata-node
 ```
 
-And put this fetcher to options manually:
+And add this `fetch` library to options manually:
 
 ```js
 import fetch from "node-fetch"
