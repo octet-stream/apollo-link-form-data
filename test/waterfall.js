@@ -52,7 +52,11 @@ test("Should resolve a correct value", async t => {
 })
 
 test("Should throw an error given task is not a function", t => {
-  t.plan(1)
+  t.plan(2)
 
-  return t.throws(waterfall([451]))
+  return Promise.all([
+    t.throws(waterfall([451])),
+
+    t.throws(waterfall([() => 0, 451]))
+  ])
 })
