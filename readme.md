@@ -37,3 +37,30 @@ import {createFormDataLink} from "apollo-link-form-data"
 
 const link = createFormDataLink({fetch})
 ```
+
+## Usage
+
+Import and initialize in just two lines:
+
+```js
+import {createFormDataLink} from "apollo-link-form-data"
+
+const link = createFormDataLink({uri: "https://api.example.com/graphql"})
+```
+
+Usage with Apollo Client:
+
+```js
+import ApolloClient from "apollo-client"
+
+import {InMemoryCache} from "apollo-cache-in-memory"
+import {createFormDataLink} from "apollo-link-form-data"
+
+const link = createFormDataLink({
+  uri: "https://api.example.com/graphql"
+})
+
+const cache = new InMemoryCache()
+
+const client = ApolloClient({link, cache})
+```
