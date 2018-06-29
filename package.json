@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Send your GraphQL request with apollo-link as FormData or stringified JSON.",
   "main": "lib/ApolloLinkFormData.js",
-  "repository": "octet-stream/apollo-link-formdata",
+  "repository": "octet-stream/apollo-link-form-data",
   "author": "Nick K. <nick.kruchinin@gmail.com>",
   "license": "MIT",
   "browser": {
