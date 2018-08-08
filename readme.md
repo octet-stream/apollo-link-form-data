@@ -5,7 +5,7 @@
 [![Build Status](https://travis-ci.org/octet-stream/apollo-link-form-data.svg?branch=master)](https://travis-ci.org/octet-stream/apollo-link-form-data)
 [![Code Coverage](https://codecov.io/github/octet-stream/apollo-link-form-data/coverage.svg?branch=master)](https://codecov.io/github/octet-stream/apollo-link-form-data?branch=master)
 
-🚧 Project on early stage. I still wotking on documentation and tests.
+🚧 Project on early stage. I am still wotking on documentation and tests.
 
 ## Installation
 
@@ -40,7 +40,7 @@ const link = createFormDataLink({fetch})
 
 ## Usage
 
-Import and initialize in just two lines:
+Import and initialize with just two lines:
 
 ```js
 import {createFormDataLink} from "apollo-link-form-data"
