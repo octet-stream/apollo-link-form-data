@@ -13,3 +13,4 @@ yarn.lock
 .gitignore
 .travis.yml
 .lintstagedrc
+.huskyrc.json
