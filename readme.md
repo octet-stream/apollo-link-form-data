@@ -83,7 +83,7 @@ Create and instance of ApolloLinkFormData with given options.
     Defaults to `false` which means that payload will be converted to FormData only when it contains at least one File.
   - **{boolean}** [options.serialize.strict = false] – if `true`, all falsy booleans will be ignored. (See [#1](https://github.com/octet-stream/object-to-form-data/pull/1#issuecomment-377878531) PR in `@octetstream/object-to-form-data` for mode info)
 
-**Another available options you can find in [ApolloHttpLink documentation](https://www.apollographql.com/docs/link/links/http.html)**.
+**Another available options you can find in [ApolloLinkHttp documentation](https://www.apollographql.com/docs/link/links/http.html)**.
 
 ## Related links
 
