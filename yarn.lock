@@ -2099,10 +2099,10 @@ form-data@~2.3.2:
     combined-stream "1.0.6"
     mime-types "^2.1.12"
 
-formdata-node@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/formdata-node/-/formdata-node-1.2.0.tgz#f9e09214936b920ccc5804c2a44977817a6dc1db"
-  integrity sha512-2aHmF6lBRgcI7iyypry94jVP6Z0wWSfkHh+bN3m7o5RgKrHOoFUDaYm9bXOhnxfa7tNA0FtRO5eRF4toso3AKQ==
+formdata-node@1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/formdata-node/-/formdata-node-1.2.1.tgz#072968aeeffc285c73c0a1ed6ae3c5922dcb3616"
+  integrity sha512-OLEKrF5vTaJr8xjY9PhZmDUiv5+2PUMnRrK+yoN+iQDZnDHmuCcT57F82ehkdPfp5jjZJAw5BED8u7NDOTJrCg==
   dependencies:
     "@babel/runtime" "7.0.0-beta.54"
     "@octetstream/invariant" "1.1.0"
