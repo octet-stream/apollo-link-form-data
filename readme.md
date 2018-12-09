@@ -90,3 +90,4 @@ Create and instance of ApolloLinkFormData with given options.
 * [then-busboy](https://github.com/octet-stream/then-busboy) is a promise-based wrapper around Busboy. Process multipart/form-data content and returns it as a single object. Will be helpful to handle your data on the server-side applications.
 * [formdata-node](https://github.com/octet-stream/form-data) is an async-iterator and steam based [FormData](https://developer.mozilla.org/en-US/docs/Web/API/FormData) implementation for Node.js
 * [@octetstream/object-to-form-data](https://github.com/octet-stream/object-to-form-data) converts JavaScript object to FormData.
+* [Apollo Link](https://www.apollographql.com/docs/link/) is a standard interface for modifying control flow of GraphQL requests and fetching GraphQL results.
