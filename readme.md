@@ -1,4 +1,6 @@
-# ApolloLinkFormData
+# apollo-link-form-data
+
+Send your GraphQL request with [apollo-link](https://github.com/apollographql/apollo-link) as FormData or JSON.
 
 [![dependencies Status](https://david-dm.org/octet-stream/apollo-link-form-data/status.svg)](https://david-dm.org/octet-stream/apollo-link-form-data)
 [![devDependencies Status](https://david-dm.org/octet-stream/apollo-link-form-data/dev-status.svg)](https://david-dm.org/octet-stream/apollo-link-form-data?type=dev)
