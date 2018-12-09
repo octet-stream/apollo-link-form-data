@@ -16,9 +16,7 @@
     "test": "node_modules/.bin/ava",
     "coverage": "node_modules/.bin/nyc yarn test",
     "report": "yarn coverage && node_modules/.bin/nyc report --reporter=html yarn test",
-    "ci": "yarn coverage && node_modules/.bin/nyc report --reporter=lcov yarn test && node_modules/.bin/codecov",
-    "precommit": "yarn staged",
-    "prepush": "yarn test"
+    "ci": "yarn coverage && node_modules/.bin/nyc report --reporter=lcov yarn test && node_modules/.bin/codecov"
   },
   "ava": {
     "files": [
