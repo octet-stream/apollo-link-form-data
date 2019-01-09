@@ -1,6 +1,7 @@
 require("isomorphic-fetch")
 
 const {Readable} = require("stream")
+const {createReadStream} = require("fs")
 
 const test = require("ava")
 
@@ -14,8 +15,11 @@ const read = require("./__helper__/readStream")
 const {createFormDataLink} = require("..")
 
 const uri = "http://localhost:2319/graphql"
+const dict = "/usr/share/dict/words"
 
-test.beforeEach(t => void (t.context.mock = mockFetch.createInstance()))
+test.beforeEach(t => t.context.mock = mockFetch.createInstance())
+
+test.afterEach(t => t.context.mock.restore())
 
 test("Should create a link without any argument", t => {
   t.plan(1)
@@ -95,6 +99,41 @@ test(
 )
 
 test(
+  "Should send serialize body to FormData when variables have files",
+  async t => {
+    t.plan(3)
+
+    const {mock} = t.context
+
+    mock.post(uri, {
+      data: {
+        doNothing: null
+      }
+    })
+
+    const query = gql`
+      mutation DoNothing($file: File!) {
+        doNothing(file: $file)
+      }
+    `
+
+    const variables = {
+      file: createReadStream(dict)
+    }
+
+    const link = createFormDataLink({uri})
+
+    await makePromise(execute(link, {query, variables}))
+
+    const [, {headers, body}] = mock.lastCall()
+
+    t.true(body instanceof Readable)
+    t.true(String(headers["content-type"]).startsWith("multipart/form-data;"))
+    t.is(headers.accept, "*/*")
+  }
+)
+
+test(
   "Should always serialize body to FormData with serialize.force option",
   async t => {
     t.plan(3)
@@ -131,8 +170,7 @@ test(
 
 test(
   "Should always serialize body to FormData with serialize.strict option " +
-  "AND ignore all boolean values"
-  ,
+  "AND ignore all boolean values",
   async t => {
     t.plan(4)
 
@@ -173,5 +211,3 @@ test(
     t.falsy(actual)
   }
 )
-
-test.afterEach(t => void t.context.mock.restore())
