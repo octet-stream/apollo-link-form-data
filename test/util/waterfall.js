@@ -2,7 +2,7 @@ const test = require("ava")
 
 const {spy} = require("sinon")
 
-const waterfall = require("../lib/util/waterfall")
+const waterfall = require("../../lib/util/waterfall")
 
 test("Should always return a Promise", async t => {
   t.plan(1)
@@ -19,16 +19,12 @@ test("Should always return a Promise", async t => {
 test(
   "Should correctly resolve values even if tasks aren't return Promise",
   async t => {
-    t.plan(2)
-
-    t.notThrows(waterfall([() => 0]))
+    t.notThrowsAsync(waterfall([() => 0]))
     t.is(await waterfall([() => 0]), 0)
   }
 )
 
 test("Should pass a result of previous task to the next", async t => {
-  t.plan(1)
-
   const taskOne = spy(() => "Hello")
 
   const taskTwo = spy(res => `${res}, world!`)
@@ -45,18 +41,15 @@ test("Should pass a result of previous task to the next", async t => {
 test("Should resolve a correct value", async t => {
   const actual = await waterfall([
     () => "Hello",
+
     prev => `${prev}, world!`
   ])
 
   t.is(actual, "Hello, world!")
 })
 
-test("Should throw an error given task is not a function", t => {
-  t.plan(2)
+test("Should throw an error given task is not a function", t => Promise.all([
+  t.throwsAsync(waterfall([451])),
 
-  return Promise.all([
-    t.throws(waterfall([451])),
-
-    t.throws(waterfall([() => 0, 451]))
-  ])
-})
+  t.throwsAsync(waterfall([() => 0, 451]))
+]))

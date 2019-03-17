@@ -1,4 +1,4 @@
 {
-  "test/**/*.js": "node_modules/.bin/eslint --fix",
-  "lib/**/*.js": "node_modules/.bin/eslint --fix"
+  "test/**/*.js": "eslint",
+  "lib/**/*.js": "eslint"
 }

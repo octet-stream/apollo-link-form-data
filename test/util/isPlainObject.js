@@ -1,6 +1,6 @@
 const test = require("ava")
 
-const isPlainObject = require("../lib/util/isPlainObject")
+const isPlainObject = require("../../lib/util/isPlainObject")
 
 test("Should return true when object literal given", t => {
   t.plan(1)
