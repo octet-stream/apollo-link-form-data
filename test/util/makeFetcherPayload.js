@@ -84,3 +84,59 @@ test("Returns form-data payload whrn body have at least one file", t => {
 
   t.pass()
 })
+
+test("Always returns form-data payload when force mode is set", t => {
+  const fd = new FormData()
+  const mockedMakePayload = pq("../../lib/util/makeFetcherPayload", {
+    "@octetstream/object-to-form-data": () => fd
+  })
+
+  const params = {
+    ...paramsTemplate,
+
+    mode: {
+      force: true
+    },
+    body: {
+      ...paramsTemplate.body,
+
+      variables: {
+        text: "Some text"
+      }
+    }
+  }
+
+  const actual = mockedMakePayload(params)
+
+  t.true(actual.body instanceof Readable)
+  t.is(fd.stream, actual.body)
+  t.deepEqual({...fd.headers, accept: "*/*"}, actual.headers)
+})
+
+test("Always returns form-data payload strict mode as well as in force", t => {
+  const fd = new FormData()
+  const mockedMakePayload = pq("../../lib/util/makeFetcherPayload", {
+    "@octetstream/object-to-form-data": () => fd
+  })
+
+  const params = {
+    ...paramsTemplate,
+
+    mode: {
+      strict: true
+    },
+    body: {
+      ...paramsTemplate.body,
+
+      variables: {
+        text: "Some text"
+      }
+    }
+  }
+
+  const actual = mockedMakePayload(params)
+
+  t.true(actual.body instanceof Readable)
+  t.is(fd.stream, actual.body)
+  t.deepEqual({...fd.headers, accept: "*/*"}, actual.headers)
+})
