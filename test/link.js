@@ -7,7 +7,7 @@ const test = require("ava")
 
 const {execute, makePromise} = require("apollo-link")
 
-const mockFetch = require("fetch-mock")
+const fm = require("fetch-mock")
 const gql = require("graphql-tag")
 
 const read = require("./__helper__/readStream")
@@ -17,21 +17,17 @@ const {createFormDataLink} = require("..")
 const uri = "http://localhost:2319/graphql"
 const dict = "/usr/share/dict/words"
 
-test.beforeEach(t => t.context.mock = mockFetch.createInstance())
+test.beforeEach(t => t.context.mock = fm.createInstance())
 
 test.afterEach(t => t.context.mock.restore())
 
 test("Should create a link without any argument", t => {
-  t.plan(1)
-
   const trap = () => createFormDataLink()
 
   t.notThrows(trap)
 })
 
 test("Should always make a request with POST method", async t => {
-  t.plan(1)
-
   const {mock} = t.context
 
   mock.post(uri, {
@@ -62,8 +58,6 @@ test("Should always make a request with POST method", async t => {
 test(
   "Should send a request with JSON body unless files were defined in variables",
   async t => {
-    t.plan(4)
-
     const {mock} = t.context
 
     mock.post(uri, {
@@ -98,11 +92,29 @@ test(
   }
 )
 
+test("Allows to set custom fetch implementation", async t => {
+  const {mock} = t.context
+
+  const fetch = fm.sandbox().mock(uri, {data: null})
+  const link = createFormDataLink({uri, fetch})
+
+  const query = gql`
+    query {
+      noop
+    }
+  `
+
+  await makePromise(execute(link, {query}))
+
+  t.true(fetch.called())
+  t.false(mock.called())
+
+  t.pass()
+})
+
 test(
   "Should send serialize body to FormData when variables have files",
   async t => {
-    t.plan(3)
-
     const {mock} = t.context
 
     mock.post(uri, {
@@ -136,8 +148,6 @@ test(
 test(
   "Should always serialize body to FormData with serialize.force option",
   async t => {
-    t.plan(3)
-
     const {mock} = t.context
 
     mock.post(uri, {
@@ -172,8 +182,6 @@ test(
   "Should always serialize body to FormData with serialize.strict option " +
   "AND ignore all boolean values",
   async t => {
-    t.plan(4)
-
     const {mock} = t.context
 
     mock.post(uri, {
@@ -211,3 +219,21 @@ test(
     t.falsy(actual)
   }
 )
+
+test("Throws an error on non 2xx code of respone", async t => {
+  const {mock} = t.context
+
+  mock.post(uri, 403)
+
+  const link = createFormDataLink({uri})
+
+  const query = gql`
+    query {
+      noop
+    }
+  `
+
+  const err = await t.throwsAsync(makePromise(execute(link, {query})))
+
+  t.is(err.message, "Network error: 403")
+})
