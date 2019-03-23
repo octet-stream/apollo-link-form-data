@@ -24,7 +24,8 @@ yarn add apollo-link-form-data graphql
 For Node.js you also need to install following dependencies:
 
 ```sh
-# Or any other fetch-compatible library instead of node-fetch
+# 1. node-fetch ot any other fetch-compatible library instead of node-fetch
+# 2. Note that you need at least 1.5.1 version of the formdata-node package
 yarn add node-fetch formdata-node
 ```
 
