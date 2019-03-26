@@ -14,20 +14,46 @@ const read = require("./__helper__/readStream")
 
 const {createFormDataLink} = require("..")
 
-const uri = "http://localhost:2319/graphql"
+const uri = "http://api.example.com/graphql"
 const dict = "/usr/share/dict/words"
 
 test.beforeEach(t => t.context.mock = fm.createInstance())
 
 test.afterEach(t => t.context.mock.restore())
 
-test("Should create a link without any argument", t => {
+test("Creates a link without any argument", t => {
   const trap = () => createFormDataLink()
 
   t.notThrows(trap)
 })
 
-test("Should always make a request with POST method", async t => {
+test("Allows to set custom uri from context (per each request)", async t => {
+  const {mock} = t.context
+
+  const expected = "http://api.another-host.com/graphql"
+
+  mock.post(expected, {
+    data: {
+      noop: null
+    }
+  })
+
+  const link = createFormDataLink({uri})
+
+  const query = gql`
+    query {
+      noop
+    }
+  `
+
+  await makePromise(execute(link, {query, context: {uri: expected}}))
+
+  const [actual] = mock.lastCall()
+
+  t.is(actual, expected)
+})
+
+test("Always make a request with POST method", async t => {
   const {mock} = t.context
 
   mock.post(uri, {
@@ -56,7 +82,7 @@ test("Should always make a request with POST method", async t => {
 })
 
 test(
-  "Should send a request with JSON body unless files were defined in variables",
+  "Send a request with JSON body unless files were defined in variables",
   async t => {
     const {mock} = t.context
 
@@ -112,41 +138,38 @@ test("Allows to set custom fetch implementation", async t => {
   t.pass()
 })
 
-test(
-  "Should send serialize body to FormData when variables have files",
-  async t => {
-    const {mock} = t.context
+test("Serialize body to FormData when variables have files", async t => {
+  const {mock} = t.context
 
-    mock.post(uri, {
-      data: {
-        doNothing: null
-      }
-    })
-
-    const query = gql`
-      mutation DoNothing($file: File!) {
-        doNothing(file: $file)
-      }
-    `
-
-    const variables = {
-      file: createReadStream(dict)
+  mock.post(uri, {
+    data: {
+      doNothing: null
     }
+  })
 
-    const link = createFormDataLink({uri})
+  const query = gql`
+    mutation DoNothing($file: File!) {
+      doNothing(file: $file)
+    }
+  `
 
-    await makePromise(execute(link, {query, variables}))
-
-    const [, {headers, body}] = mock.lastCall()
-
-    t.true(body instanceof Readable)
-    t.true(String(headers["content-type"]).startsWith("multipart/form-data;"))
-    t.is(headers.accept, "*/*")
+  const variables = {
+    file: createReadStream(dict)
   }
-)
+
+  const link = createFormDataLink({uri})
+
+  await makePromise(execute(link, {query, variables}))
+
+  const [, {headers, body}] = mock.lastCall()
+
+  t.true(body instanceof Readable)
+  t.true(String(headers["content-type"]).startsWith("multipart/form-data;"))
+  t.is(headers.accept, "*/*")
+})
 
 test(
-  "Should always serialize body to FormData with serialize.force option",
+  "Always serialize body to FormData with serialize.force option",
   async t => {
     const {mock} = t.context
 
@@ -179,7 +202,7 @@ test(
 )
 
 test(
-  "Should always serialize body to FormData with serialize.strict option " +
+  "Always serialize body to FormData with serialize.strict option " +
   "AND ignore all boolean values",
   async t => {
     const {mock} = t.context
