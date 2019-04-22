@@ -80,8 +80,7 @@ test("Returns form-data payload whrn body have at least one file", async t => {
   }
 
   const expected = {
-    ...fd.headers,
-
+    "content-type": fd.headers["Content-Type"],
     "content-length": await fd.getComputedLength(),
     accept: "*/*"
   }
@@ -119,8 +118,7 @@ test(
     }
 
     const expected = {
-      ...fd.headers,
-
+      "content-type": fd.headers["Content-Type"],
       "content-length": await fd.getComputedLength(),
       accept: "*/*"
     }
@@ -157,8 +155,7 @@ test(
     }
 
     const expected = {
-      ...fd.headers,
-
+      "content-type": fd.headers["Content-Type"],
       "content-length": await fd.getComputedLength(),
       accept: "*/*"
     }
