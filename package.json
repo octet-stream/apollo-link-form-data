@@ -5,9 +5,9 @@
   "repository": "octet-stream/apollo-link-form-data",
   "author": "Nick K. <nick.kruchinin@gmail.com>",
   "license": "MIT",
-  "main": "lib/ApolloLinkFormData.js",
+  "main": "lib/ApolloLinkFormData",
   "engines": {
-    "node": ">= 8.9.4 < 9 || >= 10"
+    "node": ">= 8 < 9 || >= 10"
   },
   "keywords": [
     "apollo-link",
