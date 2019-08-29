@@ -17,9 +17,9 @@ const {createFormDataLink} = require("..")
 const uri = "http://api.example.com/graphql"
 const dict = "/usr/share/dict/words"
 
-test.beforeEach(t => t.context.mock = fm.createInstance())
+test.beforeEach(t => { t.context.mock = fm.createInstance() })
 
-test.afterEach(t => t.context.mock.restore())
+test.afterEach(t => { t.context.mock.restore() })
 
 test("Creates a link without any argument", t => {
   const trap = () => createFormDataLink()
