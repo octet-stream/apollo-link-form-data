@@ -48,8 +48,8 @@ test("Should resolve a correct value", async t => {
   t.is(actual, "Hello, world!")
 })
 
-test("Should throw an error given task is not a function", t => Promise.all([
-  t.throwsAsync(waterfall([451])),
+test("Should throw an error given task is not a function", async t => {
+  await t.throwsAsync(waterfall([451]))
 
-  t.throwsAsync(waterfall([() => 0, 451]))
-]))
+  await t.throwsAsync(waterfall([() => 0, 451]))
+})

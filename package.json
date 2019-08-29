@@ -35,7 +35,7 @@
     ]
   },
   "devDependencies": {
-    "@octetstream/eslint-config": "3.1.0",
+    "@octetstream/eslint-config": "4.0.0",
     "ava": "2.3.0",
     "codecov": "3.5.0",
     "eslint": "6.2.2",

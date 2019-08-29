@@ -3,7 +3,7 @@ const {Readable} = require("stream")
 
 const test = require("ava")
 const pq = require("proxyquire")
-const FormData = require("formdata-node").default
+const FormData = require("formdata-node")
 
 const makePayload = require("../../lib/util/makeFetcherPayload")
 
