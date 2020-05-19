@@ -12,13 +12,6 @@
       "files": [
         "test/**/*.js"
       ]
-    }],
-    "operator-linebreak": ["error", "after", {
-      "overrides": {
-        "+": "ignore",
-        "?": "before",
-        ":": "before"
-      }
     }]
   }
 }
